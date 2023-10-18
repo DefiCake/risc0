@@ -12,9 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[derive(Debug, Clone, PartialEq, serde::Serialize)]
+pub(crate) struct CallbackResponse {
+    pub uuid: String
+}
+
 #[async_trait::async_trait]
 pub(crate) trait EventProcessor {
     type Event;
 
-    async fn process_event(&self, event: Self::Event) -> Result<(), crate::api::error::Error>;
+    async fn process_event(&self, event: Self::Event) -> Result<CallbackResponse, crate::api::error::Error>;
 }
